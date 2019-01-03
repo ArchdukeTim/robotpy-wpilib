@@ -69,7 +69,8 @@ def test_nidec_setSafetyEnabled1(nidec):
     nidec.stopMotor.assert_not_called()
 
 
-def test_nidec_setSafetyEnabled2(nidec):
+def test_nidec_setSafetyEnabled2(nidec, hal_impl_mode_helpers):
+    hal_impl_mode_helpers.set_teleop_mode(True)
     nidec.stopMotor = MagicMock()
 
     nidec.setSafetyEnabled(True)
@@ -77,7 +78,7 @@ def test_nidec_setSafetyEnabled2(nidec):
     # nidec.set(motor_input)
 
     nidec.check()
-    assert not nidec.stopMotor.called
+    assert nidec.stopMotor.called
 
 
 def test_nidec_isAlive1(nidec):
